@@ -2,7 +2,7 @@ export type ClientFormProps = {
     id: string;
     name: string;
     age: string;
-    sex: string;
+    gender: string;
     userId: string;
     street: string;
     house_number: string;
