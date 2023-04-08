@@ -154,7 +154,7 @@ export class SchedulesController {
                         },
                     });
                 }
-                return response.status(200).json(schedule);
+                return response.status(200).json({ schedule, message: "Agendamento atualizado com sucesso!" });
             }
         } catch (error: any) {
             return response.status(400).json({ error: error.message });
