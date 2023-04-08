@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { ClientsController } from "./controllers/clients";
+import { SchedulesController } from "./controllers/schedules";
 import { UserController } from "./controllers/user";
 import { authMiddleware } from "./middleware";
 
@@ -13,11 +14,17 @@ const registerUser = new UserController().create;
 const updateUser = new UserController().update;
 const deleteUser = new UserController().delete;
 
-const getAllClients = new ClientsController().clients;
+const clients = new ClientsController().clients;
+const clientProfile = new ClientsController().profile;
 const registerClient = new ClientsController().create;
 const updateClient = new ClientsController().update;
 const deleteClient = new ClientsController().delete;
-const clientProfile = new ClientsController().profile;
+
+const schedules = new SchedulesController().schedules;
+const scheduleProfile = new SchedulesController().profile;
+const registerSchedule = new SchedulesController().create;
+const updateSchedule = new SchedulesController().update;
+const deleteSchedule = new SchedulesController().delete;
 
 router.post('/login', login);
 router.post('/register', registerUser);
@@ -25,14 +32,20 @@ router.post('/register', registerUser);
 router.use(authMiddleware);
 
 router.get('/users/', users);
-router.get('/user/:id/', profile);
 router.put('/user/:id/', updateUser);
 router.delete('/user/:id/', deleteUser);
+router.get('/user/:id/', profile);
 
-router.get('/clients/', getAllClients);
+router.get('/clients/', clients);
 router.post('/client/', registerClient);
 router.put('/client/:id/', updateClient);
 router.delete('/client/:id/', deleteClient);
 router.get('/client/:id/', clientProfile);
+
+router.get('/schedules/', schedules);
+router.post('/schedule/', registerSchedule);
+router.put('/schedule/:id/', updateSchedule);
+router.delete('/schedule/:id/', deleteSchedule);
+router.get('/schedule/:id/', scheduleProfile);
 
 export { router };
