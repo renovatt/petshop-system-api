@@ -22,7 +22,7 @@ model Clients {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   name         String
   age          String
-  sex          String
+  gender       String
   street       String
   house_number String
   neighborhood String
