@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { CanceledSchedulesController } from "./controllers/canceledSchedules";
 import { ClientsController } from "./controllers/clients";
 import { SchedulesController } from "./controllers/schedules";
 import { UserController } from "./controllers/user";
@@ -26,6 +27,9 @@ const registerSchedule = new SchedulesController().create;
 const updateSchedule = new SchedulesController().update;
 const deleteSchedule = new SchedulesController().delete;
 
+const getAllSchedulesCanceled = new CanceledSchedulesController().canceled;
+const deleteAllSchedulesCanceled = new CanceledSchedulesController().deleteCanceled;
+
 router.post('/login', login);
 router.post('/register', registerUser);
 
@@ -47,5 +51,8 @@ router.post('/schedule/', registerSchedule);
 router.put('/schedule/:id/', updateSchedule);
 router.delete('/schedule/:id/', deleteSchedule);
 router.get('/schedule/:id/', scheduleProfile);
+
+router.get('/canceled-schedules/', getAllSchedulesCanceled);
+router.delete('/canceled-schedules/', deleteAllSchedulesCanceled);
 
 export { router };
