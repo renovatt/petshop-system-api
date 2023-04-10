@@ -69,7 +69,7 @@ Respostas
 - 400 Bad Request: Dados inválidos enviados na requisição.
 - 401 Unauthorized: Usuário não autenticado.
 
-<br>
+<hr>
 
 Cadastrar clientes
 
