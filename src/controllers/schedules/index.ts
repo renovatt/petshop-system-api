@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import prismaClient from "../../lib";
 import { Request, Response } from "express";
 import { verifyUserId } from "../../connections";
-import { BadRequesError } from "../../errors";
+import { BadRequesError, InternalError, NotFoundError } from "../../errors";
 import { ScheduleFormProps } from "../../@types";
 
 export class SchedulesController {
@@ -23,7 +23,7 @@ export class SchedulesController {
 
         try {
             if (!userId) {
-                throw new BadRequesError("Nenhum usuário encontrado.");
+                throw new NotFoundError("Nenhum usuário encontrado.");
             } else {
                 const dateTime = dayjs(date);
                 const ageIsNegative = (Number(age) <= 0);
@@ -65,7 +65,8 @@ export class SchedulesController {
                 return response.status(200).json(schedule);
             }
         } catch (error: any) {
-            return response.status(400).json({ error: error.message });
+            if (!error.statusCode) error = new InternalError("Error interno.")
+            return response.status(error.statusCode).json({ error: error.message });
         }
     }
 
@@ -96,7 +97,7 @@ export class SchedulesController {
             })
 
             if (!schedule) {
-                throw new BadRequesError("Nenhum agendamento foi encontrado.")
+                throw new NotFoundError("Nenhum agendamento foi encontrado.")
             } else {
                 const dateTime = dayjs(date);
                 const ageIsNegative = (Number(age) <= 0);
@@ -134,7 +135,7 @@ export class SchedulesController {
                         },
                     });
 
-                    if (alreadyExists) throw new Error("Já existe um agendamento para esse dia e horário.");
+                    if (alreadyExists) throw new BadRequesError("Já existe um agendamento para esse dia e horário.");
 
                     await prismaClient.schedules.update({
                         where: { id: id },
@@ -157,7 +158,8 @@ export class SchedulesController {
                 return response.status(200).json({ schedule, message: "Agendamento atualizado com sucesso!" });
             }
         } catch (error: any) {
-            return response.status(400).json({ error: error.message });
+            if (!error.statusCode) error = new InternalError("Error interno.")
+            return response.status(error.statusCode).json({ error: error.message });
         }
     }
 
@@ -172,7 +174,7 @@ export class SchedulesController {
             })
 
             if (!findSchedule) {
-                throw new BadRequesError("Nenhum agendamento foi encontrado.");
+                throw new NotFoundError("Nenhum agendamento foi encontrado.");
             } else {
                 const schedule = await prismaClient.schedules.delete({
                     where: { id }
@@ -180,7 +182,8 @@ export class SchedulesController {
                 return response.status(200).json({ schedule, message: "Agendamento deletado com sucesso." })
             }
         } catch (error: any) {
-            return response.status(400).json({ error: error.message });
+            if (!error.statusCode) error = new InternalError("Error interno.")
+            return response.status(error.statusCode).json({ error: error.message });
         }
     }
 
@@ -194,11 +197,12 @@ export class SchedulesController {
                 where: { id }
             })
 
-            if (!schedule) throw new BadRequesError("Nenhum cliente foi encontrado.");
+            if (!schedule) throw new NotFoundError("Nenhum cliente foi encontrado.");
 
             return response.status(200).json(schedule);
         } catch (error: any) {
-            return response.status(400).json({ error: error.message });
+            if (!error.statusCode) error = new InternalError("Error interno.")
+            return response.status(error.statusCode).json({ error: error.message });
         }
     }
 
@@ -207,7 +211,7 @@ export class SchedulesController {
 
         try {
             if (!userId) {
-                throw new BadRequesError("Nenhum usuário encontrado.");
+                throw new NotFoundError("Nenhum usuário encontrado.");
             } else {
                 const schedules = await prismaClient.schedules.findMany({
                     where: { userId }
@@ -215,7 +219,8 @@ export class SchedulesController {
                 return response.status(200).json(schedules);
             };
         } catch (error: any) {
-            return response.status(400).json({ error: error.message });
+            if (!error.statusCode) error = new InternalError("Error interno.")
+            return response.status(error.statusCode).json({ error: error.message });
         }
     }
 }

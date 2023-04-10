@@ -1,8 +1,8 @@
+import prismaClient from "../../lib";
 import { Request, Response } from 'express'
 import { ClientFormProps } from "../../@types";
 import { verifyUserId } from '../../connections';
-import { BadRequesError } from '../../errors';
-import prismaClient from "../../lib";
+import { BadRequesError, InternalError, NotFoundError } from '../../errors';
 
 export class ClientsController {
     async create(request: Request, response: Response) {
@@ -20,13 +20,13 @@ export class ClientsController {
 
         try {
             if (!userId) {
-                throw new BadRequesError("Nenhum usuário encontrado.");
+                throw new NotFoundError("Nenhum usuário encontrado.");
             } else {
                 const ageIsNegative = (Number(age) <= 0);
                 const houseNumberIsNegative = (Number(house_number) <= 0);
 
-                if (ageIsNegative) throw new Error("A idade precisa ser um valor válido!");
-                if (houseNumberIsNegative) throw new Error("O número da casa precisa ser um valor válido!");
+                if (ageIsNegative) throw new BadRequesError("A idade precisa ser um valor válido!");
+                if (houseNumberIsNegative) throw new BadRequesError("O número da casa precisa ser um valor válido!");
 
                 const client = await prismaClient.clients.create({
                     data: {
@@ -46,7 +46,8 @@ export class ClientsController {
                 return response.status(200).json({ client, message: "Cliente registrado com sucesso!" });
             }
         } catch (error: any) {
-            return response.status(400).json({ error: error.message });
+            if (!error.statusCode) error = new InternalError("Error interno.")
+            return response.status(error.statusCode).json({ error: error.message });
         }
     }
 
@@ -71,13 +72,13 @@ export class ClientsController {
             })
 
             if (!findClient) {
-                throw new BadRequesError("Nenhum cliente foi encontrado.")
+                throw new NotFoundError("Nenhum cliente foi encontrado.")
             } else {
                 const ageIsNegative = (Number(age) <= 0);
                 const houseNumberIsNegative = (Number(house_number) <= 0);
 
-                if (ageIsNegative) throw new Error("A idade precisa ser um valor válido!");
-                if (houseNumberIsNegative) throw new Error("O número da casa precisa ser um valor válido!");
+                if (ageIsNegative) throw new BadRequesError("A idade precisa ser um valor válido!");
+                if (houseNumberIsNegative) throw new BadRequesError("O número da casa precisa ser um valor válido!");
 
                 const client = await prismaClient.clients.update({
                     where: { id },
@@ -95,7 +96,8 @@ export class ClientsController {
                 return response.status(200).json({ client, message: "Cliente atualizado com sucesso!" });
             }
         } catch (error: any) {
-            return response.status(400).json({ error: error.message });
+            if (!error.statusCode) error = new InternalError("Error interno.")
+            return response.status(error.statusCode).json({ error: error.message });
         }
     }
 
@@ -110,7 +112,7 @@ export class ClientsController {
             })
 
             if (!findClient) {
-                throw new BadRequesError("Nenhum cliente foi encontrado.");
+                throw new NotFoundError("Nenhum cliente foi encontrado.");
             } else {
                 const client = await prismaClient.clients.delete({
                     where: { id }
@@ -118,7 +120,8 @@ export class ClientsController {
                 return response.status(200).json({ client, message: "Cliente deletado com sucesso!" });
             }
         } catch (error: any) {
-            return response.status(400).json({ error: error.message });
+            if (!error.statusCode) error = new InternalError("Error interno.")
+            return response.status(error.statusCode).json({ error: error.message });
         }
     }
 
@@ -132,11 +135,12 @@ export class ClientsController {
                 where: { id }
             });
 
-            if (!client) throw new BadRequesError("Nenhum cliente foi encontrado.");
+            if (!client) throw new NotFoundError("Nenhum cliente foi encontrado.");
 
             return response.status(200).json(client);
         } catch (error: any) {
-            return response.status(400).json({ error: error.message });
+            if (!error.statusCode) error = new InternalError("Error interno.")
+            return response.status(error.statusCode).json({ error: error.message });
         }
     }
 
@@ -145,7 +149,7 @@ export class ClientsController {
 
         try {
             if (!userId) {
-                throw new BadRequesError("Nenhum usuário encontrado.");
+                throw new NotFoundError("Nenhum usuário encontrado.");
             } else {
                 const clients = await prismaClient.clients.findMany({
                     where: { userId }
@@ -153,7 +157,8 @@ export class ClientsController {
                 return response.status(200).json(clients);
             };
         } catch (error: any) {
-            return response.status(400).json({ error: error.message });
+            if (!error.statusCode) error = new InternalError("Error interno.")
+            return response.status(error.statusCode).json({ error: error.message });
         }
     }
 }

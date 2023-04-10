@@ -3,7 +3,7 @@ import prismaClient from "../../lib";
 import { Prisma } from '@prisma/client';
 import { Request, Response } from 'express'
 import { UserFormProps } from "../../@types";
-import { BadRequesError } from '../../errors';
+import { BadRequesError, InternalError, NotFoundError } from '../../errors';
 import { hashPassword, verifyEmail, verifyPassword, verifyUserId, verifyValidPassword } from '../../connections';
 
 export class UserController {
@@ -45,7 +45,8 @@ export class UserController {
 
             return response.status(201).json({ user, message: "Usuário foi criado com sucesso!" });
         } catch (error: any) {
-            return response.status(400).json({ error: error.message })
+            if (!error.statusCode) error = new InternalError("Error interno.")
+            return response.status(error.statusCode).json({ error: error.message });
         }
     }
 
@@ -60,7 +61,7 @@ export class UserController {
                 },
             });
 
-            if (!foundUser) throw new BadRequesError("Usuário não encontrado.");
+            if (!foundUser) throw new NotFoundError("Usuário não encontrado.");
 
             const passwordMatch = await verifyPassword(password, foundUser.password);
             if (!passwordMatch) throw new BadRequesError("Senha está incorreta.");
@@ -75,7 +76,8 @@ export class UserController {
 
             return response.status(201).json({ user, token });
         } catch (error: any) {
-            return response.status(400).json({ error: error.message });
+            if (!error.statusCode) error = new InternalError("Error interno.")
+            return response.status(error.statusCode).json({ error: error.message });
         }
     }
 
@@ -99,7 +101,7 @@ export class UserController {
             })
 
             if (!findUser) {
-                throw new BadRequesError("Não existe nenhum usuário com essas informações.")
+                throw new NotFoundError("Não existe nenhum usuário com essas informações.")
             } else {
                 const hashedPassword = await hashPassword(password);
 
@@ -121,7 +123,8 @@ export class UserController {
                 return response.status(201).json(user)
             }
         } catch (error: any) {
-            return response.status(400).json({ error: error.message });
+            if (!error.statusCode) error = new InternalError("Error interno.")
+            return response.status(error.statusCode).json({ error: error.message });
         }
     }
 
@@ -137,7 +140,7 @@ export class UserController {
             })
 
             if (!findUser) {
-                throw new BadRequesError("Este usuário já foi deletado ou não existe!")
+                throw new NotFoundError("Este usuário já foi deletado ou não existe!")
             } else {
                 const deletedUser = await prismaClient.user.delete({
                     where: { id }
@@ -152,7 +155,8 @@ export class UserController {
                 return response.status(201).json({ user, message: "Usuário deletado com sucesso!" })
             }
         } catch (error: any) {
-            return response.status(400).json({ error: error.message })
+            if (!error.statusCode) error = new InternalError("Error interno.")
+            return response.status(error.statusCode).json({ error: error.message });
         }
     }
 
@@ -167,7 +171,7 @@ export class UserController {
                 where: { id }
             })
 
-            if (!foundUser) throw new BadRequesError("Usuário não encontrado.")
+            if (!foundUser) throw new NotFoundError("Usuário não encontrado.")
 
             const user: Partial<Prisma.UserCreateInput> = {
                 id: foundUser?.id,
@@ -177,7 +181,8 @@ export class UserController {
 
             return response.status(201).json(user)
         } catch (error: any) {
-            return response.status(400).json({ error: error.message })
+            if (!error.statusCode) error = new InternalError("Error interno.")
+            return response.status(error.statusCode).json({ error: error.message });
         }
     }
 
@@ -189,7 +194,8 @@ export class UserController {
             if (!allUsers) throw new BadRequesError("Lamento, aconteceu algum erro ao buscar os dados.")
             return response.status(201).json(users)
         } catch (error: any) {
-            return response.status(400).json({ error: error.message })
+            if (!error.statusCode) error = new InternalError("Error interno.")
+            return response.status(error.statusCode).json({ error: error.message });
         }
     }
 }
