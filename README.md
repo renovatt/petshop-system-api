@@ -55,6 +55,61 @@ Respostas
 
 <hr>
 
+### Usuário
+<br>
+
+Listar usuários
+
+    GET /users
+
+Retorna uma lista de todos os usuários registrado no sistema.
+
+Respostas
+- 200 OK: Retorna um array com os usuários no corpo da resposta.
+- 400 Bad Request: Dados inválidos enviados na requisição.
+- 401 Unauthorized: Usuário não autenticado.
+
+<br>
+
+Listar usuário
+
+    GET /user/:id
+
+Retorna as informações do usuário registrado no sistema.
+
+Respostas
+- 200 OK: Retorna um objeto com as informações usuário no corpo da resposta.
+- 400 Bad Request: Dados inválidos enviados na requisição.
+- 401 Unauthorized: Usuário não autenticado.
+
+<br>
+
+Atualizar usuário
+
+    PUT /user/:id
+
+Atualiza os dados do usuário registrado autenticado.
+
+Respostas
+- 200 OK: Usuário atualizado com sucesso. Retorna um objeto com o usuário no corpo da resposta.
+- 400 Bad Request: Dados inválidos enviados na requisição.
+- 401 Unauthorized: Usuário não autenticado.
+
+<br>
+
+Deletar usuário
+
+    DELETE /user/:id
+
+Deleta o usuário cadastrado do sistema e todas suas informações do banco de dados.
+
+Respostas
+- 200 OK: Usuário deletado com sucesso. Retorna o objeto do usuário deletado no corpo da resposta.
+- 400 Bad Request: Dados inválidos enviados na requisição.
+- 401 Unauthorized: Usuário não autenticado.
+
+<hr>
+
 ### Clientes
 <br>
 
@@ -69,7 +124,7 @@ Respostas
 - 400 Bad Request: Dados inválidos enviados na requisição.
 - 401 Unauthorized: Usuário não autenticado.
 
-<hr>
+<br>
 
 Cadastrar clientes
 
@@ -79,6 +134,19 @@ Envia um objeto com o cliente cadastrado pelo usuário autenticado.
 
 Respostas
 - 200 OK: Cliente cadastrado com sucesso. Retorna um objeto com o cliente no corpo da resposta.
+- 400 Bad Request: Dados inválidos enviados na requisição.
+- 401 Unauthorized: Usuário não autenticado.
+
+<br>
+
+Listar cliente
+
+    GET /client/:id
+
+Retorna as informações do cliente registrado no sistema.
+
+Respostas
+- 200 OK: Retorna um objeto com as informações cliente no corpo da resposta.
 - 400 Bad Request: Dados inválidos enviados na requisição.
 - 401 Unauthorized: Usuário não autenticado.
 
@@ -139,9 +207,22 @@ Respostas
 
 <br>
 
+Listar agendamento
+
+    GET /schedule/:id
+
+Retorna as informações do agendamento registrado no sistema.
+
+Respostas
+- 200 OK: Retorna um objeto com as informações agendamento no corpo da resposta.
+- 400 Bad Request: Dados inválidos enviados na requisição.
+- 401 Unauthorized: Usuário não autenticado.
+
+<br>
+
 Atualizar agendamentos
 
-    PUT /schedules/:id
+    PUT /schedule/:id
 
 Atualiza o agendamento relizado pelo usuário autenticado.
 
@@ -152,9 +233,9 @@ Respostas
 
 <br>
 
-Deletar agendamentos
+Deletar agendamento
 
-    DELETE /schedules/:id
+    DELETE /schedule/:id
 
 Deleta o agendamento que foi relizado pelo usuário autenticado.
 
@@ -164,6 +245,19 @@ Respostas
 - 401 Unauthorized: Usuário não autenticado.
 
 <br>
+
+Deletar agendamentos cancelados
+
+    GET /schedules/canceled
+
+Lista todos os agendamentos cancelados pelo usuário autenticado.
+
+Respostas
+- 200 OK: Retorna um array com os agendamentos no corpo da resposta.
+- 400 Bad Request: Se caso não existir dados.
+- 401 Unauthorized: Usuário não autenticado.
+
+<hr>
 
 Deletar agendamentos cancelados
 
