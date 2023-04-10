@@ -34,6 +34,8 @@ Respostas
 - 200 OK: Login efetuado com sucesso. Retorna o token JWT no corpo da resposta.
 - 400 Bad Request: Dados inválidos enviados na requisição.
 - 401 Unauthorized: E-mail ou senha inválidos.
+- 404 Not Found: Dados não encontrados.
+- 500 Internal Server Error: Erro interno do servidor.
 
 <hr>
 
@@ -52,6 +54,8 @@ Parâmetros de entrada:
 Respostas
 - 200 OK: Usuário registrado com sucesso.
 - 400 Bad Request: Dados inválidos enviados na requisição.
+- 404 Not Found: Dados não encontrados.
+- 500 Internal Server Error: Erro interno do servidor.
 
 <hr>
 
@@ -68,6 +72,8 @@ Respostas
 - 200 OK: Retorna um array com os usuários no corpo da resposta.
 - 400 Bad Request: Dados inválidos enviados na requisição.
 - 401 Unauthorized: Usuário não autenticado.
+- 404 Not Found: Dados não encontrados.
+- 500 Internal Server Error: Erro interno do servidor.
 
 <br>
 
@@ -81,6 +87,8 @@ Respostas
 - 200 OK: Retorna um objeto com as informações usuário no corpo da resposta.
 - 400 Bad Request: Dados inválidos enviados na requisição.
 - 401 Unauthorized: Usuário não autenticado.
+- 404 Not Found: Dados não encontrados.
+- 500 Internal Server Error: Erro interno do servidor.
 
 <br>
 
@@ -94,6 +102,8 @@ Respostas
 - 200 OK: Usuário atualizado com sucesso. Retorna um objeto com o usuário no corpo da resposta.
 - 400 Bad Request: Dados inválidos enviados na requisição.
 - 401 Unauthorized: Usuário não autenticado.
+- 404 Not Found: Dados não encontrados.
+- 500 Internal Server Error: Erro interno do servidor.
 
 <br>
 
@@ -107,6 +117,8 @@ Respostas
 - 200 OK: Usuário deletado com sucesso. Retorna o objeto do usuário deletado no corpo da resposta.
 - 400 Bad Request: Dados inválidos enviados na requisição.
 - 401 Unauthorized: Usuário não autenticado.
+- 404 Not Found: Dados não encontrados.
+- 500 Internal Server Error: Erro interno do servidor.
 
 <hr>
 
@@ -123,6 +135,8 @@ Respostas
 - 200 OK: Lista de agendamentos retornada com sucesso. Retorna um array com os agendamentos no corpo da resposta.
 - 400 Bad Request: Dados inválidos enviados na requisição.
 - 401 Unauthorized: Usuário não autenticado.
+- 404 Not Found: Dados não encontrados.
+- 500 Internal Server Error: Erro interno do servidor.
 
 <br>
 
@@ -136,6 +150,8 @@ Respostas
 - 200 OK: Cliente cadastrado com sucesso. Retorna um objeto com o cliente no corpo da resposta.
 - 400 Bad Request: Dados inválidos enviados na requisição.
 - 401 Unauthorized: Usuário não autenticado.
+- 404 Not Found: Dados não encontrados.
+- 500 Internal Server Error: Erro interno do servidor.
 
 <br>
 
@@ -149,6 +165,8 @@ Respostas
 - 200 OK: Retorna um objeto com as informações cliente no corpo da resposta.
 - 400 Bad Request: Dados inválidos enviados na requisição.
 - 401 Unauthorized: Usuário não autenticado.
+- 404 Not Found: Dados não encontrados.
+- 500 Internal Server Error: Erro interno do servidor.
 
 <br>
 
@@ -162,6 +180,8 @@ Respostas
 - 200 OK: Cliente atualizado com sucesso. Retorna um objeto com o cliente no corpo da resposta.
 - 400 Bad Request: Dados inválidos enviados na requisição.
 - 401 Unauthorized: Usuário não autenticado.
+- 404 Not Found: Dados não encontrados.
+- 500 Internal Server Error: Erro interno do servidor.
 
 <br>
 
@@ -175,6 +195,8 @@ Respostas
 - 200 OK: Cliente deletado com sucesso. Retorna o objeto do cliente deletado no corpo da resposta.
 - 400 Bad Request: Dados inválidos enviados na requisição.
 - 401 Unauthorized: Usuário não autenticado.
+- 404 Not Found: Dados não encontrados.
+- 500 Internal Server Error: Erro interno do servidor.
 
 <hr>
 
@@ -191,6 +213,8 @@ Respostas
 - 200 OK: Lista de agendamentos retornada com sucesso. Retorna um array com os agendamentos no corpo da resposta.
 - 400 Bad Request: Dados inválidos enviados na requisição.
 - 401 Unauthorized: Usuário não autenticado.
+- 404 Not Found: Dados não encontrados.
+- 500 Internal Server Error: Erro interno do servidor.
 
 <br>
 
@@ -204,6 +228,8 @@ Respostas
 - 200 OK: Agendamento realizado com sucesso. Retorna um objeto com o agendamento no corpo da resposta.
 - 400 Bad Request: Dados inválidos enviados na requisição.
 - 401 Unauthorized: Usuário não autenticado.
+- 404 Not Found: Dados não encontrados.
+- 500 Internal Server Error: Erro interno do servidor.
 
 <br>
 
@@ -217,6 +243,8 @@ Respostas
 - 200 OK: Retorna um objeto com as informações agendamento no corpo da resposta.
 - 400 Bad Request: Dados inválidos enviados na requisição.
 - 401 Unauthorized: Usuário não autenticado.
+- 404 Not Found: Dados não encontrados.
+- 500 Internal Server Error: Erro interno do servidor.
 
 <br>
 
@@ -230,6 +258,8 @@ Respostas
 - 200 OK: Agendamento atualizado com sucesso. Retorna um objeto com o agendamento no corpo da resposta.
 - 400 Bad Request: Dados inválidos enviados na requisição.
 - 401 Unauthorized: Usuário não autenticado.
+- 404 Not Found: Dados não encontrados.
+- 500 Internal Server Error: Erro interno do servidor.
 
 <br>
 
@@ -243,6 +273,8 @@ Respostas
 - 200 OK: Agendamento deletado com sucesso. Retorna o objeto do agendamento deletado no corpo da resposta.
 - 400 Bad Request: Dados inválidos enviados na requisição.
 - 401 Unauthorized: Usuário não autenticado.
+- 404 Not Found: Dados não encontrados.
+- 500 Internal Server Error: Erro interno do servidor.
 
 <br>
 
@@ -256,6 +288,8 @@ Respostas
 - 200 OK: Retorna um array com os agendamentos no corpo da resposta.
 - 400 Bad Request: Se caso não existir dados.
 - 401 Unauthorized: Usuário não autenticado.
+- 404 Not Found: Dados não encontrados.
+- 500 Internal Server Error: Erro interno do servidor.
 
 <hr>
 
@@ -269,6 +303,8 @@ Respostas
 - 200 OK: Agendamentos cancelados deletados com sucesso. Retorna um objeto com a contagem de agendamentos deletados no corpo da resposta.
 - 400 Bad Request: Se caso não existir dados.
 - 401 Unauthorized: Usuário não autenticado.
+- 404 Not Found: Dados não encontrados.
+- 500 Internal Server Error: Erro interno do servidor.
 
 <hr>
 
