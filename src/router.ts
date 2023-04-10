@@ -52,7 +52,7 @@ router.put('/schedule/:id/', updateSchedule);
 router.delete('/schedule/:id/', deleteSchedule);
 router.get('/schedule/:id/', scheduleProfile);
 
-router.get('/canceled-schedules/', getAllSchedulesCanceled);
-router.delete('/canceled-schedules/', deleteAllSchedulesCanceled);
+router.get('/schedules/canceled/', getAllSchedulesCanceled);
+router.delete('/schedules/canceled/', deleteAllSchedulesCanceled);
 
 export { router };

@@ -4,7 +4,7 @@ import { Prisma } from '@prisma/client';
 import { Request, Response } from 'express'
 import { UserFormProps } from "../../@types";
 import { BadRequesError } from '../../errors';
-import { hashPassword, verifyPassword, verifyUserId } from '../../bcrypt';
+import { hashPassword, verifyEmail, verifyPassword, verifyUserId, verifyValidPassword } from '../../connections';
 
 export class UserController {
     async create(request: Request, response: Response) {
@@ -12,6 +12,12 @@ export class UserController {
         const { id, username, email, password }: UserFormProps = request.body
 
         try {
+            const passwordErrors = verifyValidPassword(password);
+
+            if (!username) throw new BadRequesError("Nome de usuário inválido.")
+            if (!email || !verifyEmail(email)) throw new BadRequesError("Este não é um e-mail válido.")
+            if (passwordErrors.length > 0) throw new BadRequesError(passwordErrors.join(" "));
+
             const userExists = await prismaClient.user.findUnique({
                 where: {
                     email: email
@@ -82,6 +88,12 @@ export class UserController {
 
             if (verifyUserId(id)) throw new BadRequesError("O ID do usuário é inválido ou não existe!");
 
+            const passwordErrors = verifyValidPassword(password);
+
+            if (!username) throw new BadRequesError("Nome de usuário inválido.")
+            if (!email || !verifyEmail(email)) throw new BadRequesError("Este não é um e-mail válido.")
+            if (passwordErrors.length > 0) throw new BadRequesError(passwordErrors.join(" "));
+
             const findUser = await prismaClient.user.findUnique({
                 where: { id }
             })
@@ -90,7 +102,7 @@ export class UserController {
                 throw new BadRequesError("Não existe nenhum usuário com essas informações.")
             } else {
                 const hashedPassword = await hashPassword(password);
-                
+
                 const updatedUser = await prismaClient.user.update({
                     where: { id },
                     data: {

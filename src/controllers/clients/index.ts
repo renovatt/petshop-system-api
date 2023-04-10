@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { ClientFormProps } from "../../@types";
-import { verifyUserId } from '../../bcrypt';
+import { verifyUserId } from '../../connections';
 import { BadRequesError } from '../../errors';
 import prismaClient from "../../lib";
 

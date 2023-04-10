@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import prismaClient from "../../lib";
 import { Request, Response } from "express";
-import { verifyUserId } from "../../bcrypt";
+import { verifyUserId } from "../../connections";
 import { BadRequesError } from "../../errors";
 import { ScheduleFormProps } from "../../@types";
 
