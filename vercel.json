@@ -1,6 +1,6 @@
 {
     "name": "petshopt-system-api",
-    "version": "1.0.0",
+    "version": 2,
     "public": true,
     "builds": [
         {
